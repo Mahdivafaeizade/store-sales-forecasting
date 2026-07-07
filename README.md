@@ -1,3 +1,13 @@
+---
+title: Store Sales Forecasting API
+emoji: 📈
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # Store Sales Forecasting
 
 Forecasting daily grocery sales for Corporación Favorita, a large Ecuadorian retailer, using historical sales, promotions, holidays, and oil price data. Built for [Kaggle's Store Sales - Time Series Forecasting](https://www.kaggle.com/competitions/store-sales-time-series-forecasting) competition.
