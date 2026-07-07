@@ -35,7 +35,16 @@ The final model reduces error by ~28% versus the naive baseline. Feature importa
 
 ## Known limitation
 
-The competition's test set covers 15 future days with no real sales data. Lag/rolling features for that window are approximated by freezing each store+product's last known values from the end of the training period, rather than a full recursive day-by-day forecast. A future improvement would be iterative multi-step forecasting, re-predicting one day at a time and feeding each prediction into the next day's lag features.
+The competition's test set covers 15 future days with no real sales data. Lag/rolling features for that window are approximated by freezing each store+product's last known values from the end of the training period, rather than a full recursive day-by-day forecast.
+
+**Experiment: recursive forecasting was tried and reverted.** Recursive multi-step forecasting (predict one day at a time, feed each prediction into the next day's lag/rolling features) is the theoretically more correct approach, and was implemented and submitted. It scored *worse* on the leaderboard (0.56793 vs. 0.45034 RMSLE) — a real instance of **error accumulation**: the model was trained on lag features built from true historical sales, so at test time, feeding its own (imperfect) predictions back in as pseudo-history compounds error across the 15-day horizon. Local validation didn't catch this beforehand, since the validation split's lag features were still built from real data, not simulated recursive predictions. The frozen-lag approach was kept as the primary submission based on this measured result, not assumption. Worth revisiting with damping/blending strategies (e.g., weighted average of frozen and recursive features) if pursued further.
+
+## Leaderboard submissions
+
+| Approach | Public RMSLE |
+|---|---|
+| Frozen last-known lag/rolling features | **0.45034** (kept as primary) |
+| Recursive day-by-day forecasting | 0.56793 (reverted, see above) |
 
 ## Project structure
 
