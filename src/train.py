@@ -44,6 +44,17 @@ def main():
     train_df = build_features(train_df, holidays_df, oil_df, stores_df)
     train_df = add_lag_and_rolling_features(train_df)
 
+    reference = (
+        train_df.sort_values("date")
+        .groupby(["store_nbr", "family"], observed=True)
+        .tail(1)[["store_nbr", "family", "sales_lag_7", "sales_rolling_mean_7"]]
+    )
+    reference.to_csv("models/reference_features.csv", index=False)
+
+    latest_oil_price = oil_df["dcoilwtico"].ffill().iloc[-1]
+    with open("models/latest_oil_price.txt", "w") as f:
+        f.write(str(latest_oil_price))
+
     cutoff_date = train_df["date"].max() - pd.Timedelta(days=15)
     train_split = train_df[train_df["date"] <= cutoff_date]
     val_split = train_df[train_df["date"] > cutoff_date]

@@ -4,6 +4,4 @@ __pycache__/
 .env
 data/*.csv
 data/*.zip
-*.pkl
-*.joblib
 .pytest_cache/
