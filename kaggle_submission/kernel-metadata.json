@@ -1,0 +1,13 @@
+{
+  "id": "mahdivafaei/store-sales-forecasting-lightgbm",
+  "title": "Store Sales Forecasting - LightGBM",
+  "code_file": "submission.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "false",
+  "enable_gpu": "false",
+  "enable_internet": "false",
+  "competition_sources": ["store-sales-time-series-forecasting"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
